@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bói tình yêu 💖</title>
+
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: sans-serif;
+
+            /* 🔥 giữ lại background */
+            background-image: url("https://img.thuthuatphanmem.vn/uploads/2018/09/28/hinh-nen-ve-tinh-yeu-dep_025633595.jpg");
+            background-size: cover;
+            background-position: center;
+        }
+
+        .box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            width: 320px;
+            box-shadow: 0 0 25px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: red;
+        }
+
+        input {
+            padding: 10px;
+            margin: 10px;
+            width: 220px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: pink;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: hotpink;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 22px;
+            color: red;
+            font-weight: bold;
+        }
+
+        /* ❤️ TRÁI TIM CSS */
+        .heart {
+            width: 100px;
+            height: 100px;
+            background: rgb(200,200,200);
+            position: relative;
+            margin: 20px auto;
+            transform: rotate(-45deg);
+            transition: background 0.2s;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            width: 100px;
+            height: 100px;
+            background: inherit;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before {
+            top: -50px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 50px;
+            top: 0;
+        }
+
+        /* 💓 hiệu ứng đập */
+        .beat {
+            animation: beat 0.5s infinite alternate;
+        }
+
+        @keyframes beat {
+            from { transform: rotate(-45deg) scale(1); }
+            to { transform: rotate(-45deg) scale(1.15); }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="box">
+    <h1>💖 Test độ hợp 💖</h1>
+
+    <input id="name1" placeholder="Tên bạn"><br>
+    <input id="name2" placeholder="Tên crush"><br>
+
+    <button onclick="checkLove()">Xem kết quả</button>
+
+    <div id="heart" class="heart"></div>
+
+    <div id="result">0%</div>
+</div>
+
+<script>
+function checkLove() {
+    let n1 = document.getElementById("name1").value;
+    let n2 = document.getElementById("name2").value;
+    let heart = document.getElementById("heart");
+
+    if (n1 === "" || n2 === "") {
+        alert("Nhập đủ tên đi bro 😅");
+        return;
+    }
+
+    heart.classList.add("beat");
+
+    let target = (n1.length * 7 + n2.length * 9) % 31 + 70;
+    let percent = 0;
+
+    let result = document.getElementById("result");
+
+    let interval = setInterval(() => {
+        percent++;
+
+        result.innerHTML = percent + "%";
+
+        // 🔥 đỏ dần rõ ràng
+        let red = 255;
+        let green = 200 - percent * 2;
+        let blue = 200 - percent * 2;
+
+        heart.style.background = `rgb(${red}, ${green}, ${blue})`;
+
+        if (percent >= target) {
+            clearInterval(interval);
+
+            heart.classList.remove("beat");
+
+            let text = "";
+            if (target > 90) text = "💘 Cưới luôn đi!";
+            else if (target > 80) text = "💖 Rất hợp!";
+            else text = "❤️ Ổn áp nha!";
+
+            result.innerHTML = target + "%<br>" + text;
+        }
+    }, 25);
+}
+</script>
+
+</body>
+</html>
